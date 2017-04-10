@@ -46,7 +46,7 @@ controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParam
 		};
 
 		var uploader = $scope.uploader = new FileUploader({
-			url:''//sciezka do api
+			url:'api/admin/images/upload/' + $routeParams.id
 		});
 			 uploader.filters.push({
             name: 'imageFilter',
