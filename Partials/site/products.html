@@ -1,0 +1,30 @@
+<div class="container">
+
+<div class="row">
+        <div class='col-xs-6'>
+          <input type="text" class='form-control' placeholder='szukaj...' ng-model='search'></input>
+          <br>
+        </div>
+      </div>
+
+        <div ng-controller='products'>
+          <div class='panel panel-default' ng-repeat='product in products | filter:search'>
+            <div class="panel-body">
+  
+            <h2><span class="label label-warning pull-right">cena: {{product.price | number:2}} zł</span></h2>
+          <h2><a href="#/product/{{$index}}"> {{product.name}}</a> </h2>
+          
+           
+           
+       
+           <p>&nbsp;</p>
+           <br>
+           <a href="#/product/{{$index}}" class='alert alert-warning'>Szczegóły</a>
+           <button ng-click='addToCart(product)' class='btn btn-warning btn-primary btn-lg'>Dodaj do koszyka</button>
+           <p>&nbsp;</p>
+          </div>
+          </div>
+          <br>
+          
+        </div>
+      </div>
