@@ -28,14 +28,28 @@ controllersAdmin.controller( 'products' , [ '$scope' , '$http' , 'cartSrv', func
 
 controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParams' ,'FileUploader',  function( $scope,  $http, $routeParams, FileUploader ){
 	
+		var id = $routeParams.id;
+		$scope.id = id;
 
-		$http.get( 'Model/produkty.json').
+
+		$http.post( 'Model/produkty.json').
 	success(function(data){
 		var produkty = data;
 		$scope.product = produkty[$routeParams.id];
 	} ).error(function(){ 
 		console.log('Niestety bład');
 	});
+
+	function getImages(){
+		$http.post( 'api/admin/images/get/' + $routeParams.id ).
+	success(function(data){
+		$scope.images = data;
+	} ).error(function(){ 
+		console.log('Niestety bład');
+	});
+	}
+
+	getImages();
 
 		$scope.saveChanges = function(product){
 
@@ -56,7 +70,7 @@ controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParam
             }
         });
 			 uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
+            getImages();
         };
 }]);
 
