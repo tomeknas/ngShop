@@ -114,6 +114,10 @@
         		<p>{{product.desc}}</p>
         		<h3><span class='label label-warning'>{{product.price | number:2}} zł</span></h3>
         		<hr></hr>
+
+                <div ng-repeat='image in images'>
+                    <img ng-src="uploads/{{id}}/{{image}}" alt="{{image}}" style='width:200px; margin:10px' class='img-thumbnail pull-left'>
+                </div>
 				
         	</div>
 				<div class="row text-right">
