@@ -17,10 +17,14 @@ controllersAdmin.controller( 'products' , [ '$scope' , '$http' , 'cartSrv', func
 	$scope.delete = function(product, $index){
 			if (!confirm('Czy na pewno chcesz usunąć produkt: ' + product.name + '?'))
 				return false;
-			//TODO: zapisac dane przez api
+		
 			$scope.products.splice($index, 1 );
 
-			console.log(product);
+			$http.post( 'api/admin/products/delete/', {
+				product: product
+			} ).error(function(){ 
+				console.log('Błąd komunikacji z API');
+	});
 			
 		}
 		
@@ -98,14 +102,25 @@ controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParam
         }
 }]);
 
-controllersAdmin.controller( 'productCreate' , [ '$scope' , '$http', function( $scope,  $http ){
+controllersAdmin.controller( 'productCreate' , [ '$scope' , '$http','$timeout', function( $scope,  $http, $timeout ){
 	
 
-		$scope.createProduct = function(){
+		$scope.createProduct = function(product){
 
-			//TODO: zapisac dane przez api
 
-			console.log($scope.product);
+
+			$http.post( 'api/admin/products/create/', {
+				product: product
+			}).
+			success(function(data){
+				$scope.success = true;
+				$timeout(function(){
+					$scope.success = false;
+					$scope.product={};
+				}, 3000);
+			} ).error(function(){ 
+				console.log('Błąd komunikacji z API');
+	});
 			
 		}
 
@@ -122,7 +137,7 @@ controllersAdmin.controller( 'users' , [ '$scope' , '$http' , function( $scope, 
 	$scope.delete = function(user, $index){
 			if (!confirm('Czy na pewno chcesz usunąć użytkownika?'))
 				return false;
-			//TODO: zapisac dane przez api
+			
 			$scope.users.splice($index, 1 );
 
 			console.log(product);
