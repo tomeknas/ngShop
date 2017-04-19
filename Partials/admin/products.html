@@ -24,11 +24,11 @@
             <h2>{{product.name}}
             <span class='label label-warning pull-right'>cena: {{product.price | number:2}} zł</span></h2>
             <h2><span class="label label-info  ">waga: {{product.weight}} kg</span></h2>
-            <p>{{product.desc}}</p>
+            <p>{{product.description}}</p>
           <br>
             
         
-        <a href="#/admin/product/edit/{{$index}}" class='alert alert-warning'>Edytuj</a>
+        <a href="#/admin/product/edit/{{product.id}}" class='alert alert-warning'>Edytuj</a>
            <button class="btn btn-danger pull-right" ng-click='delete(product, $index)'>Usuń</button>
           </div>
           </div>
