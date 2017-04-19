@@ -7,7 +7,7 @@ var controllersAdmin = angular.module( 'controllersAdmin' , ['angularFileUpload'
 
 controllersAdmin.controller( 'products' , [ '$scope' , '$http' , 'cartSrv', function( $scope, $http, cartSrv ){
 	
-		$http.get( 'Model/produkty.json').
+		$http.get( 'api/admin/products/get').
 	success(function(data){
 		$scope.products = data;
 	} ).error(function(){ 
@@ -32,16 +32,15 @@ controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParam
 		$scope.id = productId;
 
 
-		$http.post( 'Model/produkty.json').
+		$http.get( 'api/admin/products/get/' + productId ).
 	success(function(data){
-		var produkty = data;
-		$scope.product = produkty[$routeParams.id];
-	} ).error(function(){ 
+		$scope.product =data;
+	}).error(function(){ 
 		console.log('Niestety bład');
 	});
 
 	function getImages(){
-		$http.post( 'api/admin/images/get/' + $routeParams.id ).
+		$http.get( 'api/admin/images/get/' + productId ).
 	success(function(data){
 		$scope.images = data;
 	} ).error(function(){ 
