@@ -26,7 +26,14 @@ class Products extends CI_Controller {
 		$this->Products_model->update($product);
 		
 	}
-
+	public function create(){
+		$product = $this->input->post('product');
+		$this->Products_model->create($product);
+	}
+	public function delete(){
+		$product = $this->input->post('product');
+		$this->Products_model->delete($product);
+	}
 }
 
 /* End of file Products.php */
