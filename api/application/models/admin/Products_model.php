@@ -29,6 +29,13 @@ class Products_model extends CI_Model {
 		$this->db->update('products', $product);
 	}
 
+	public function create ($product){
+		$this->db->insert('products', $product);
+	}
+	public function delete($product){
+		$this->db->where('id', $product['id']);
+		$this->db->delete('products');
+	}
 }
 
 /* End of file product_model.php */
