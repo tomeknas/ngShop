@@ -26,7 +26,7 @@ controllersAdmin.controller( 'products' , [ '$scope' , '$http' , 'cartSrv', func
 		
 }]);
 
-controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParams' ,'FileUploader',  function( $scope,  $http, $routeParams, FileUploader ){
+controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParams' ,'FileUploader','$timeout',  function( $scope,  $http, $routeParams, FileUploader, $timeout ){
 	
 		var productId = $routeParams.id;
 		$scope.id = productId;
@@ -52,10 +52,21 @@ controllersAdmin.controller( 'productEdit' , [ '$scope' , '$http' , '$routeParam
 
 		$scope.saveChanges = function(product){
 
-			//TODO: zapisac dane przez api
+			$http.post( 'api/admin/products/update/', {
+				product: product
 
-			console.log(product);
-			console.log($routeParams.id);
+			}).
+			success(function(data){
+				$scope.success = true;
+				$timeout(function(){
+					$scope.success = false;
+				}, 3000);
+			} ).error(function(){ 
+				console.log('Błąd komunikacji z API');
+	});
+
+			
+			
 		};
 
 		var uploader = $scope.uploader = new FileUploader({
